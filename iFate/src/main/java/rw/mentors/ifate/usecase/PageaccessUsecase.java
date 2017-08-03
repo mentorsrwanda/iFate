@@ -3,14 +3,15 @@ package rw.mentors.ifate.usecase;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Component
-@ManagedBean(eager = true,name = "access")
-@RequestScoped
+@ManagedBean(eager = true, name = "access")
+@SessionScoped
 public class PageaccessUsecase implements Serializable {
 
 	/**
@@ -21,7 +22,10 @@ public class PageaccessUsecase implements Serializable {
 	private String access;
 
 	public PageaccessUsecase() {
-		access = "cases";
+		access = new String();
+		if (access == "" || access.isEmpty()) {
+			access = "cases";
+		}
 	}
 
 	public String getAccess() {
@@ -33,23 +37,21 @@ public class PageaccessUsecase implements Serializable {
 	}
 
 	public String accessRequest(String page, String side) {
-		String accesspage = "";
 		access = side;
-		
-		System.out.println("The Page To be accessed will be :"+side);
+
+		System.out.println("The Page To be accessed will be :" + side);
 		try {
-			if(side.length() >0)
-			{
+			if (side.length() > 0) {
 				this.access = side;
-			}else{
+			} else {
 				this.access = "cases";
 			}
 		} catch (Exception e) {
-			accesspage = "empty";
+			page = "empty";
 			e.printStackTrace();
 		}
 
-		return accesspage;
+		return page;
 	}
 
 }

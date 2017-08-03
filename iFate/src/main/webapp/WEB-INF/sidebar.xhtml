@@ -8,7 +8,7 @@
 	<h:form id="menu">
 
 		<h:panelGroup>
-			<h:panelGroup rendered="#{access.access == 'cases'}">
+			<h:panelGroup rendered="#{access.access == 'cases'  or access.access == null}">
 				<div class="fluid">
 					<div class="card" style="background-color: #f9f9f9;">
 						<pu:menu>
@@ -38,19 +38,10 @@
 				<div class="fluid">
 					<div class="card" style="background-color: #f9f9f9;">
 						<pu:menu>
-							<p:menuitem value="Domain" icon="&#xE871;" outcome="/empty" />
-							<p:menuitem value="Categories" outcome="/empty"
+							<p:menuitem value="Dashboard" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="ManageDomains" outcome="/ManageDomains"
 								icon="fa fa-list" ajax="true" />
-							<p:menuitem value="Other" outcome="/empty"
-								icon="&#xE861;" ajax="true" />
-
-
-							<p:menuitem value="other" outcome="/empty" icon="&#xE861;" />
-
-
-
-							<p:menuitem value="Irrelevent Case" icon="fa fa-sitemap"
-								outcome="/empty" ajax="true" />
+							
 
 
 

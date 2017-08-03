@@ -36,41 +36,20 @@
 
 					<pu:menu widgetVar="me">
 						<p:menuitem id="um_cases" value="Cases" icon="&#xE871;"
-							outcome="/dashboard" />
-						<p:submenu id="um_customization" label="Customization"
-							icon="&#xE8B8;">
-							<p:menuitem id="custom1" value="Compact Size" icon="&#xE061;"
-								actionListener="#{guestPreferences.setCompact(true)}"
-								ajax="false" />
-							<p:menuitem id="custom2" value="Material Size" icon="&#xE062;"
-								actionListener="#{guestPreferences.setCompact(false)}"
-								ajax="false" />
-							<p:menuitem id="custom3" value="Static Menu" icon="&#xE5D2;"
-								actionListener="#{guestPreferences.setMenuLayout('static')}"
-								ajax="false" />
-							<p:menuitem id="custom4" value="Overlay Menu" icon="&#xE879;"
-								actionListener="#{guestPreferences.setMenuLayout('overlay')}"
-								ajax="false" />
-							<p:menuitem id="custom5" value="Horizontal Menu" icon="&#xE22C;"
-								actionListener="#{guestPreferences.setMenuLayout('horizontal')}"
-								ajax="false" />
-							<p:menuitem id="custom6" value="Light Menu" icon="&#xE893;"
-								actionListener="#{guestPreferences.setLightMenu}" ajax="false" />
-							<p:menuitem id="custom7" value="Dark Menu" icon="&#xE892;"
-								actionListener="#{guestPreferences.setDarkMenu}" ajax="false" />
-							<p:menuitem id="custom8" value="Inline Profile" icon="&#xE0BA;"
-								actionListener="#{guestPreferences.setProfileMode('inline')}"
-								ajax="false" />
-							<p:menuitem id="custom9" value="Top Profile" icon="&#xE55A;"
-								actionListener="#{guestPreferences.setProfileMode('overlay')}"
-								ajax="false" />
-						</p:submenu>
-						<p:menuitem id="um_statistics" value="Statistics" icon="&#xE869;"
-							outcome="/utils" />
-						<p:menuitem id="um_security" value="Security" icon="&#xE869;"
-							outcome="/utils" />
-						<p:menuitem id="um_content" value="Content" icon="&#xE880;"
-							outcome="/docs" />
+							action="#{access.accessRequest('empty','cases')}" ajax="false" />
+
+						<p:menuitem id="um_cases1" value="Domain" icon="fa fa-clipboard"
+							action="#{access.accessRequest('empty','domain')}" ajax="false"/>
+
+						<p:menuitem id="um_cases2" value="Security" icon="fa fa-wrench"
+							action="#{access.accessRequest('empty','security')}" ajax="false"/>
+
+						<p:menuitem id="um_cases3" value="Statistics" icon="fa fa-bar-chart"
+							action="#{access.accessRequest('empty','stati')}" ajax="false"/>
+
+						<p:menuitem id="um_cases4" value="Contents" icon="fa fa-bank"
+							action="#{access.accessRequest('empty','content')}" ajax="false"/>
+
 					</pu:menu>
 				</div>
 			</div>

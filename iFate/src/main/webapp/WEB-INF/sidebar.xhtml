@@ -1,0 +1,144 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<h:form id="menu">
+
+		<h:panelGroup>
+			<h:panelGroup rendered="#{access.access == 'cases'}">
+				<div class="fluid">
+					<div class="card" style="background-color: #f9f9f9;">
+						<pu:menu>
+							<p:menuitem value="New case" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="Opened Case" outcome="/empty"
+								icon="fa fa-list" ajax="true" />
+							<p:menuitem value="Information Case" outcome="/empty"
+								icon="&#xE861;" ajax="true" />
+
+
+							<p:menuitem value="Closed Case" outcome="/empty" icon="&#xE861;" />
+
+
+
+							<p:menuitem value="Irrelevent Case" icon="fa fa-sitemap"
+								outcome="/empty" ajax="true" />
+
+
+
+
+						</pu:menu>
+					</div>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{access.access == 'domain'}">
+				<div class="fluid">
+					<div class="card" style="background-color: #f9f9f9;">
+						<pu:menu>
+							<p:menuitem value="Domain" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="Categories" outcome="/empty"
+								icon="fa fa-list" ajax="true" />
+							<p:menuitem value="Other" outcome="/empty"
+								icon="&#xE861;" ajax="true" />
+
+
+							<p:menuitem value="other" outcome="/empty" icon="&#xE861;" />
+
+
+
+							<p:menuitem value="Irrelevent Case" icon="fa fa-sitemap"
+								outcome="/empty" ajax="true" />
+
+
+
+
+						</pu:menu>
+					</div>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{access.access == 'security'}">
+				<div class="fluid">
+					<div class="card" style="background-color: #f9f9f9;">
+						<pu:menu>
+							<p:menuitem value="first" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="second" outcome="/empty"
+								icon="fa fa-list" ajax="true" />
+							<p:menuitem value="third" outcome="/empty"
+								icon="&#xE861;" ajax="true" />
+
+
+							<p:menuitem value="fourth" outcome="/empty" icon="&#xE861;" />
+
+
+
+							<p:menuitem value="fifth" icon="fa fa-sitemap"
+								outcome="/empty" ajax="true" />
+
+
+
+
+						</pu:menu>
+					</div>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{access.access == 'stati'}">
+				<div class="fluid">
+					<div class="card" style="background-color: #f9f9f9;">
+						<pu:menu>
+							<p:menuitem value="stati1" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="secondstati" outcome="/empty"
+								icon="fa fa-list" ajax="true" />
+							<p:menuitem value="thirdstati" outcome="/empty"
+								icon="&#xE861;" ajax="true" />
+
+
+							<p:menuitem value="fourthstati" outcome="/empty" icon="&#xE861;" />
+
+
+
+							<p:menuitem value="fifthstati" icon="fa fa-sitemap"
+								outcome="/empty" ajax="true" />
+
+
+
+
+						</pu:menu>
+					</div>
+				</div>
+			</h:panelGroup>
+			
+			<h:panelGroup rendered="#{access.access == 'content'}">
+				<div class="fluid">
+					<div class="card" style="background-color: #f9f9f9;">
+						<pu:menu>
+							<p:menuitem value="content1" icon="&#xE871;" outcome="/empty" />
+							<p:menuitem value="content2" outcome="/empty"
+								icon="fa fa-list" ajax="true" />
+							<p:menuitem value="content3" outcome="/empty"
+								icon="&#xE861;" ajax="true" />
+
+
+							<p:menuitem value="content4" outcome="/empty" icon="&#xE861;" />
+
+
+
+							<p:menuitem value="content5" icon="fa fa-sitemap"
+								outcome="/empty" ajax="true" />
+
+
+
+
+						</pu:menu>
+					</div>
+				</div>
+			</h:panelGroup>
+		</h:panelGroup>
+
+
+	</h:form>
+</ui:composition>

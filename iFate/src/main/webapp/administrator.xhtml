@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<div class="ui-g">
+			<div class="ui-g-12">
+				<div class="card">
+					<h:form>
+						<div class="ui-g">
+							<div class="ui-g-2">
+								<p:commandButton value="Add Domain" />
+							</div>
+							<div class="ui-g-10" />
+						</div>
+						<div class="ui-g">
+							<div class="ui-g-12">
+								<p:dataTable value="#{adminBean.allDomain()}" var="domain">
+									<p:column headerText="Name">
+												#{domain.name}
+									</p:column>
+									<p:column headerText="Name">
+												#{domain.description}
+									</p:column>
+									<p:column headerText="Edit">
+										<center>
+											<p:commandLink>
+												<i class="fa fa-pencil" />
+											</p:commandLink>
+										</center>
+									</p:column>
+									<p:column headerText="Delete">
+										<center>
+											<p:commandLink>
+												<i class="fa fa-trash" />
+											</p:commandLink>
+										</center>
+									</p:column>
+									<p:column headerText="Categories">
+										<center>
+											<p:commandButton value="View" />
+										</center>
+									</p:column>
+								</p:dataTable>
+							</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

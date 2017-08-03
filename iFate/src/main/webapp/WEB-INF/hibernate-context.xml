@@ -36,7 +36,7 @@
 		<!-- For development add your packages here so it does not scan everything -->
 		<property name="packagesToScan">
 			<list>
-				<value>rw.ifate</value>
+				<value>rw.mentors</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

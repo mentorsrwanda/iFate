@@ -41,6 +41,26 @@ public class Cases extends GenericDomain {
 	@OneToOne(mappedBy = "question")
 	private Answer answer;
 
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "LOCATION_UUID")
+	private Location location;
+
+	public Answer getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
+
 	public String getNames() {
 		return names;
 	}

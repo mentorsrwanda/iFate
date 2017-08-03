@@ -25,7 +25,7 @@
 
 
 	<!-- Components Scan -->
-	<context:component-scan base-package="rw.ifate" />
+	<context:component-scan base-package="rw.mentors" />
 
 	<import resource="hibernate-context.xml" />
 

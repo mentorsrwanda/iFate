@@ -1,9 +1,7 @@
 package rw.mentors.ifate.usecase;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,10 +21,11 @@ import rw.mentors.ifate.service.AdminService;
 @Component
 @ManagedBean
 @ViewScoped
-public class AdminBean {
+public class AdministratorBean {
 	
 	@Autowired
 	private AdminService adminService;
+	
 	private Domain domain = new Domain();
 
 	public void addDomain() {
@@ -38,29 +37,17 @@ public class AdminBean {
 		}
 	}
 
-	private List<Domain> all = new ArrayList<Domain>();
-	@PostConstruct
-	public void init(){
-		all = allDomain();
-	}
+	
 	public List<Domain> allDomain() {
 		return adminService.allDomain();
 	}
-	
-	
-
 	public Domain getDomain() {
 		return domain;
 	}
 	public void setDomain(Domain domain) {
 		this.domain = domain;
 	}
-	public List<Domain> getAll() {
-		return all;
-	}
-	public void setAll(List<Domain> all) {
-		this.all = all;
-	}
+	
 	public void successMessages(String summary, String detail) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
 		FacesContext.getCurrentInstance().addMessage(null, message);

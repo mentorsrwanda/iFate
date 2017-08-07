@@ -6,12 +6,86 @@
 	xmlns:pu="http://primefaces.org/ultima">
 
 	<ui:define name="content">
-        <h:form>
+		<h:form id="form">
 
-          <div class="card">
-            <p:commandButton value="Add New" icon="ui-icon-plus"/>
-          </div>
+			<div class="card">
+				<p:messages closable="true" showDetail="false" autoUpdate="true"
+					escape="true" />
+					
+				<p:commandButton value="Add New" icon="ui-icon-plus"
+					oncomplete="PF('newdomain').show()" />
 
+				<p:dataTable value="#{administratorBean.allDomain()}" var="domain"
+					style="margin-top:10px;"
+					rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+					>
+					<p:column headerText="Domain name" style="width:200px;">
+              #{domain.name}
+            </p:column>
+					<p:column headerText="Domain Descirpiton" style="width:450px;">
+              #{domain.description}
+            </p:column>
+            <p:column headerText="Categories" style="width:100px;">
+              <center>
+               <p:commandLink id="dv" action="#{administratorBean.fetchDomain(domain)}">
+                  <i class="fa fa-align-center" style="font-size:25px;"/>
+               </p:commandLink>
+               <p:tooltip value="View Categories" for="dv" position="left" />
+               </center>
+            </p:column>
+					<p:column headerText="Actions" style="width:100px;">
+					<center>
+						<p:commandLink id="dm">
+							<i class="fa fa-pencil" style="font-size: 20px;" />
+						</p:commandLink>
+						<p:tooltip value="Edit Domain" for="dm" position="left" />
+						<p:commandLink id="dt" oncomplete="PF('confirm').show()" action="#{administratorBean.downloadDomain(domain)}">
+							<i class="fa fa-trash" style="font-size: 20px;margin-left:10px;" />
+						</p:commandLink>
+						<p:tooltip value="Delete Domain" for="dt" position="top"/>
+						</center>
+					</p:column>
+				</p:dataTable>
+			</div>
+
+		</h:form>
+
+		<h:form>
+
+			<p:dialog showEffect="clip" hideEffect="clip" width="500"
+				widgetVar="newdomain" closable="true">
+				<f:facet name="header">
+					<center>Record New Domain</center>
+				</f:facet>
+				
+				<div class="fluid">
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank form-group">
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputText style="width:95%;"  value="#{administratorBean.domain.name}"/>
+							<label>Name</label>
+						</h:panelGroup>
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputTextarea style="width:95%;"  value="#{administratorBean.domain.description}"/>
+							<label>Your Message</label>
+						</h:panelGroup>
+					</p:panelGrid>
+				</div>
+				<f:facet name="footer">
+					<p:commandButton icon="fa fa-save" value="save" action="#{administratorBean.addDomain()}" update="@all" oncomplete="PF('newdomain').hide()"/>
+				</f:facet>
+			</p:dialog>
+		</h:form>
+		
+		<h:form>
+		   <p:confirmDialog showEffect="clip" hideEffect="clip" message="Are you sure you want to proced the opration?!!" widgetVar="confirm">
+		     <p:commandButton icon="ui-icon-check" value="Yes" oncomplete="PF('confirm').hide()" action="#{administratorBean.deleteDomain()}" update=":form"/>
+		     <p:commandButton icon="ui-icon-close" value="No" onclick="PF('confirm').hide()"/>
+		   </p:confirmDialog>
+		   
 		</h:form>
 	</ui:define>
 

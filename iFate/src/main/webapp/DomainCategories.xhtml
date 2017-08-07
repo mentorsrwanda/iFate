@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<ui:define name="content">
+
+
+
+		<h:form id="form">
+			<p:messages autoUpdate="true" closable="true" showDetail="false" />
+			<p:breadCrumb>
+				<p:menuitem value="AllDomain" outcome="ManageDomains" />
+				<p:menuitem value="#{administratorBean.domain.name}" />
+
+			</p:breadCrumb>
+			<div class="card" style="margin-top: 20px;">
+			<div>
+				<p:commandButton value="Add New" icon="ui-icon-plus"
+					oncomplete="PF('newcategory').show()" />
+					
+				<h4 style="float:right;">Categories for  #{administratorBean.domain.name}  Domain</h4>
+				</div>
+
+				<p:dataTable style=" margin-top:20px;"
+					value="#{administratorBean.domain.categories}" var="categorie"
+					rows="5" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column headerText="Code" style="width:50px;">
+	         #{categorie.code}
+	       </p:column>
+					<p:column headerText="Name" style="width:100px;">
+	         #{categorie.name}
+	       </p:column>
+					<p:column headerText="Description" style="width:300px;">
+	         #{categorie.description}
+	       </p:column>
+					<p:column headerText="Questions" style="width:50px;">
+						<p:commandLink action="#{administratorBean.fetchCategory(categorie)}">
+							<i class="fa fa-pencil-square-o" style="font-size: 20px;" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</div>
+
+		</h:form>
+
+		<h:form>
+			<p:dialog showEffect="clip" hideEffect="clip" closable="true"
+				width="500" widgetVar="newcategory">
+				<f:facet name="header">
+				  RECORD NEW CATEGORY
+				</f:facet>
+				<div class="fluid">
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank form-group">
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputText style="width:95%;"
+								value="#{administratorBean.category.name}" />
+							<label>Name</label>
+						</h:panelGroup>
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputTextarea style="width:95%;"
+								value="#{administratorBean.category.description}" />
+							<label>Description</label>
+						</h:panelGroup>
+					</p:panelGrid>
+				</div>
+				<f:facet name="footer">
+					<p:commandButton value="save" icon="fa fa-save"
+						oncomplete="PF('newcategory').hide()" action="#{administratorBean.recordCategory()}" update=":form"/>
+				</f:facet>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

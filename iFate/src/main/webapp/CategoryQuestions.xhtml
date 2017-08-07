@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<ui:define name="content">
+
+
+
+		<h:form id="form">
+
+			<p:messages autoUpdate="true" closable="true" showDetail="false" />
+			<p:breadCrumb>
+				<p:menuitem value="AllDomain" outcome="ManageDomains" />
+				<p:menuitem value="#{administratorBean.domain.name}"
+					outcome="DomainCategories" />
+				<p:menuitem value="#{administratorBean.category.name}" />
+			</p:breadCrumb>
+
+			<div class="card" style="margin-top: 20px;">
+				<div>
+					<p:commandButton value="Add New" icon="ui-icon-plus"
+						oncomplete="PF('newQuestion').show()" />
+
+					<h4 style="float: right;">Questions for
+						#{administratorBean.category.name} Category</h4>
+
+				</div>
+
+
+				<p:dataTable value="#{administratorBean.category.indicators}"
+					var="indicator" rows="5" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" style="margin-top:30px;">
+					<p:column headerText="code">
+			     #{indicator.code}
+			   </p:column>
+					<p:column headerText="Indicator">
+			     #{indicator.indicatorName}
+			   </p:column>
+					<p:column headerText="QuestionName">
+			      #{indicator.name}
+			   </p:column>
+
+					<p:column headerText="Answers" style="width:100px;">
+						<h:panelGroup>
+							<h:panelGroup rendered="#{indicator.questionType == 'OPEN'}">
+								<center>
+									<p:commandLink id="ans" disabled="true" >
+										<i class="fa fa-check-square-o" style="font-size: 20px;" />
+									</p:commandLink>
+									<p:tooltip value="No answer" for="ans" position="top" />
+								</center>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{indicator.questionType == 'CLOSE'}">
+								<center>
+									<p:commandLink id="ans1" action="#{administratorBean.fetchIndicator(indicator)}">
+										<i class="fa fa-check-square-o" style="font-size: 20px;" />
+									</p:commandLink>
+									<p:tooltip value="Answer for the question" for="ans1"
+										position="top" />
+								</center>
+							</h:panelGroup>
+						</h:panelGroup>
+					</p:column>
+
+				</p:dataTable>
+			</div>
+
+		</h:form>
+
+		<h:form>
+			<p:dialog widgetVar="newQuestion" showEffect="clip" hideEffect="clip"
+				closable="true" width="600">
+				<f:facet name="header">
+		      Record New Question.
+		    </f:facet>
+				<div class="fluid">
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank form-group">
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputText style="width:95%;"
+								value="#{administratorBean.indicator.code}" />
+							<label>Question Code</label>
+						</h:panelGroup>
+
+
+						<p:selectOneMenu style="width:95%;margin-top:20px;"
+							value="#{administratorBean.indicator.questionType}">
+							<f:selectItem itemLabel="Choose Question Type"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="OPEN" itemValue="OPEN" />
+							<f:selectItem itemLabel="CLOSE" itemValue="CLOSE" />
+						</p:selectOneMenu>
+
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputText style="width:95%;"
+								value="#{administratorBean.indicator.indicatorName}" />
+							<label>Question Indicator</label>
+						</h:panelGroup>
+
+						<h:panelGroup styleClass="md-inputfield" style="margin-top:20px;">
+							<p:inputTextarea style="width:95%;"
+								value="#{administratorBean.indicator.name}" />
+							<label>Question Description</label>
+						</h:panelGroup>
+					</p:panelGrid>
+				</div>
+				<f:facet name="footer">
+					<p:commandButton icon="fa fa-save" value="Add"
+						action="#{administratorBean.recordIndicator()}"
+						update=":form,@form" oncomplete="PF('newQuestion').hide()" />
+				</f:facet>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

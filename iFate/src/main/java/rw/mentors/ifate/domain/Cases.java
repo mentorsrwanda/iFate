@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -33,6 +35,10 @@ public class Cases extends GenericDomain {
 	private String description;
 	@Column(name = "COMMENT")
 	private String comment;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "AGE")
+	private EAgeGroup ageGroup;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "DOMAIN_UUID")
@@ -44,6 +50,29 @@ public class Cases extends GenericDomain {
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "LOCATION_UUID")
 	private Location location;
+	
+	@ManyToOne
+	@JoinColumn
+	private District district;
+	
+	
+	
+	
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	public EAgeGroup getAgeGroup() {
+		return ageGroup;
+	}
+
+	public void setAgeGroup(EAgeGroup ageGroup) {
+		this.ageGroup = ageGroup;
+	}
 
 	public Answer getAnswer() {
 		return answer;

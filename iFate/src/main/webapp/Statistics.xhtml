@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<ui:define name="content">
+		<h:form>
+			<p:growl autoUpdate="true" life="5000" />
+			<div class="card">
+				<div class="ui-g">
+					<div class="ui-g-12">
+						<div class="ui-g-12 ui-md-8">
+							<p:fieldset legend="Variables" style="font-weight: bold;">
+								<p:selectOneMenu style="margin-top:20px;width:200px;"
+									value="#{statisticalUsecase.domainId}">
+									<f:selectItem itemLabel="Choose Domain" />
+									<f:selectItems value="#{administratorBean.allDomain()}"
+										var="domain" itemLabel="#{domain.name}"
+										itemValue="#{domain.id}" />
+									<f:ajax listener="#{statisticalUsecase.categories()}"
+										render="table" />
+								</p:selectOneMenu>
+								<p:dataTable value="#{statisticalUsecase.categories()}"
+									var="categorie" style="margin-top:30px;" id="table">
+									<p:column style="width:50px;" headerText="code">
+			             #{categorie.code}
+			           </p:column>
+									<p:column headerText="Categorie Name">
+			             #{categorie.name}
+			           </p:column>
+
+									<p:column headerText="NUmbers" style="width:50px;">
+										<p:commandLink
+											action="#{statisticalUsecase.filleMap(categorie)}"
+											update="@form">
+											<i class="fa fa-bar-chart" />
+											<p:ajax listener="#{statisticalUsecase.filleMap(categorie)}"
+												update="@form" />
+										</p:commandLink>
+									</p:column>
+								</p:dataTable>
+							</p:fieldset>
+						</div>
+						<div class="ui-g-12 ui-md-5">
+							<h:panelGroup>
+								<h:panelGroup rendered="#{statisticalUsecase.choosen == true}">
+									<p:repeat var="valeur"
+										value="#{statisticalUsecase.frequencies}">
+										<p:panel header="#{valeur.key}" style="margin-top:5px;">
+											<p:dataTable value="#{valeur.value}" var="val">
+												<p:column headerText="Value">
+											    #{val.key}
+											  </p:column>
+												<p:column headerText="Occurence">
+													<center>#{val.value}</center>
+												</p:column>
+											</p:dataTable>
+										</p:panel>
+									</p:repeat>
+								</h:panelGroup>
+
+							</h:panelGroup>
+						</div>
+						<div class="ui-g-12 ui-md-7">
+							<h:panelGroup>
+							<h:panelGroup rendered="#{statisticalUsecase.openindicators.size() > 0}">
+								<p:fieldset legend="Open Questions" style="font-weight:bold;">
+									<p:selectOneMenu value="#{statisticalUsecase.choosenIndicator}">
+									    <f:selectItem itemLabel="Choose Question" noSelectionOption="true"/>
+										<f:selectItems value="#{statisticalUsecase.openindicators}"
+											var="indic" itemLabel="#{indic.key}" itemValue="#{indic.key}" />
+										<p:ajax listener="#{statisticalUsecase.responseByIndicator()}" update="contents"/>
+									</p:selectOneMenu>
+									<p:scrollPanel style="height:300px" mode="native" id="contents">
+									   <p:repeat var="valeur" value="#{statisticalUsecase.responseByIndicator()}">
+									     <p:panel header="#{statisticalUsecase.sdf.format(valeur.cases.reportedDate)}" style="width:90%;margin-left:30px;margin-top:5px;">
+									       #{valeur.comment}
+									     </p:panel>
+									    </p:repeat>
+									</p:scrollPanel>
+								</p:fieldset>
+								  
+								<p:fieldset legend="Stastical chart for Closed Questions" style="font-weight:bold;margin-top:10px">
+								   <p:selectOneMenu value="#{statisticalUsecase.closedQuestion}">
+								       <f:selectItem itemLabel="Choose Question" noSelectionOption="true"/>
+								      <f:selectItems  value="#{statisticalUsecase.frequencies}" var="freque" itemLabel="#{freque.key}" itemValue="#{freque.key}"/>
+								      <p:ajax listener="#{statisticalUsecase.dwonload()}" update="grp,chart"/>
+								   </p:selectOneMenu>
+								   <h:panelGroup id="grp">
+								     <h:panelGroup rendered="#{statisticalUsecase.closedQuestion.length() > 0}">
+								   <p:chart type="bar"
+											style="height:300px;margin-top:20px;"
+											model="#{statisticalUsecase.barModel}" id="chart" responsive="true"/>
+											</h:panelGroup>
+											</h:panelGroup>
+								</p:fieldset>
+								</h:panelGroup>
+							</h:panelGroup>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

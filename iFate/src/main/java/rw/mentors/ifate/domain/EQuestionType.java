@@ -7,5 +7,5 @@ package rw.mentors.ifate.domain;
  */
 public enum EQuestionType {
 	OPEN,
-	CLOSE
+	CLOSE;
 }

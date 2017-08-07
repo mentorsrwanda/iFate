@@ -1,0 +1,139 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/repporting.xhtml"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<ui:define name="head">
+		<style type="text/css">
+
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="form">
+			<p:messages autoUpdate="true" closable="true" showDetail="false"
+				escape="true" />
+			<h:link outcome="repportingCategory" value="Back"
+				style="text-decoration:underline;" />
+
+			<div class="card">
+				<p:wizard>
+					<p:tab title="Imyirondoro / Personal Info">
+						<div class="fluid">
+							<p:panelGrid columns="2" layout="grid"
+								styleClass="ui-panelgrid-blank form-group">
+								<h:panelGroup styleClass="md-inputfield"
+									style="margin-top:20px;">
+									<p:inputText style="width:95%;"
+										value="#{repportingBean.cases.names}" />
+									<label>Amazina / Names</label>
+								</h:panelGroup>
+
+								<h:panelGroup styleClass="md-inputfield"
+									style="margin-top:20px;">
+									<p:inputText style="width:95%;"
+										value="#{repportingBean.cases.phoneNumber}" />
+									<label>Numero ya Telephone / Phone Number</label>
+								</h:panelGroup>
+
+								<p:selectOneMenu style="width:600px;"
+									value="#{repportingBean.cases.gender}">
+									<f:selectItem itemLabel="Igitsina / Gender"
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="Male" itemValue="Male" />
+									<f:selectItem itemLabel="Female" itemValue="Female" />
+								</p:selectOneMenu>
+
+								<p:selectOneMenu style="width:600px;"
+									value="#{repportingBean.cases.ageGroup}">
+									<f:selectItem itemLabel="Ikiciro cy'imyaka / Age Group"
+										noSelectionOption="true" />
+									<f:selectItems value="#{repportingBean.agegroups()}" var="age"
+										itemLabel="#{age.range}" itemValue="#{age}" />
+								</p:selectOneMenu>
+
+								<p:selectOneMenu style="width:600px;"
+									value="#{repportingBean.provinceId}">
+									<f:selectItem itemLabel="Choose Province"
+										noSelectionOption="true" />
+									<f:selectItems value="#{repportingBean.provinces()}"
+										var="province" itemLabel="#{province.name}"
+										itemValue="#{province.id}" />
+									<p:ajax listener="#{repportingBean.provinceDistricts()}"
+										update="dis" />
+								</p:selectOneMenu>
+
+								<p:selectOneMenu style="width:600px;" id="dis"
+									value="#{repportingBean.districtId}">
+									<f:selectItem itemLabel="Choose District"
+										noSelectionOption="true" />
+									<f:selectItems value="#{repportingBean.provinceDistricts()}"
+										var="district" itemLabel="#{district.name}"
+										itemValue="#{district.id}" />
+								</p:selectOneMenu>
+
+							</p:panelGrid>
+							<p:panelGrid columns="1" layout="grid"
+								styleClass="ui-panelgrid-blank form-group">
+								<h:panelGroup styleClass="md-inputfield"
+									style="margin-top:20px;">
+									<p:inputTextarea style="width:100%;"
+										value="#{repportingBean.cases.description}" rows="5" />
+									<label>Ubusobanuro / Description</label>
+								</h:panelGroup>
+							</p:panelGrid>
+
+						</div>
+					</p:tab>
+					<p:tab title="Kuzuza ibisabwa / filling Form">
+						<p:dataTable value="#{repportingBean.category.indicators}"
+							var="indicator" style="margin-top:10px;margin-bottom:10px;">
+							<p:column headerText="Code / Numero" style="width:100px;">
+				      #{indicator.code}
+				    </p:column>
+							<p:column headerText="Ibibazo/Question">
+								<b>#{indicator.name} : </b>
+								<br />
+								<br />
+								<h:panelGroup>
+									<h:panelGroup rendered="#{indicator.answers.size() == 0}">
+
+										<p:inputTextarea rows="3" style="width:60%;"
+											placeholder="Ubusonuro / descritpion"
+											value="#{repportingBean.first}">
+											<p:ajax
+												listener="#{repportingBean.checkopenAnswer(indicator)}" />
+										</p:inputTextarea>
+
+
+									</h:panelGroup>
+									<h:panelGroup rendered="#{indicator.answers.size() > 0}">
+
+										<p:selectOneRadio style="text-align:center;"
+											value="#{repportingBean.globalId}">
+											<f:selectItems value="#{indicator.answers}" var="answer"
+												itemLabel="#{answer.openAnswer}" itemValue="#{answer.id}" />
+											<f:ajax listener="#{repportingBean.addingtoList(indicator)}" />
+										</p:selectOneRadio>
+
+									</h:panelGroup>
+								</h:panelGroup>
+
+
+							</p:column>
+						</p:dataTable>
+						<p:commandButton value="Submit" icon="fa fa-check"
+							action="#{repportingBean.recordResponse()}" style="float:right;"
+							styleClass="teal-btn" update="@form" />
+					</p:tab>
+				</p:wizard>
+			</div>
+
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

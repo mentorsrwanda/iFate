@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author NIYOMWUNGERI
@@ -27,11 +28,26 @@ public class Answer extends GenericDomain {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "QUESTION_UUID")
-	private Question question;
+	private Indicator question;
+	
+	
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "CASE_UUID")
 	private Cases cases;
+	
+	@Transient
+	private String ip;
+	
+	
+	
+    public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
 	public String getOpenAnswer() {
 		return openAnswer;
@@ -49,11 +65,11 @@ public class Answer extends GenericDomain {
 		this.closedAnswer = closedAnswer;
 	}
 
-	public Question getQuestion() {
+	public Indicator getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(Question question) {
+	public void setQuestion(Indicator question) {
 		this.question = question;
 	}
 
@@ -64,5 +80,9 @@ public class Answer extends GenericDomain {
 	public void setCases(Cases cases) {
 		this.cases = cases;
 	}
+
+	
+	
+	
 
 }

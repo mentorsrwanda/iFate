@@ -18,6 +18,7 @@ public class Location extends GenericDomain {
 	private String type;
 	@OneToOne(mappedBy="location")
 	private Cases cases;
+	
 	public String getName() {
 		return name;
 	}

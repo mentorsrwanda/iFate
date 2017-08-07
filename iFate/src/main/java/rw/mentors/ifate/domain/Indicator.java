@@ -17,6 +17,7 @@ import javax.persistence.Table;
 public class Indicator extends Question {
 
 	private static final long serialVersionUID = 1L;
+	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "CATEGORY_UUID")
 	private Category category;

@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/repporting.xhtml"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<ui:define name="content">
+	<h:form>
+ 
+	  <p:panel header="Domains To Repport on" style="width:30%;margin:auto;text-align:center;">
+	  <p:scrollPanel mode="native" style="height:400px;">
+	     <p:repeat var="domain" value="#{administratorBean.allDomain()}">
+	         <p:row>
+	         <center>
+	            <h3 style="font-weight:bold;color: gray;">#{domain.name}</h3>
+	            <p:commandButton styleClass="green-btn flat" icon="fa fa-check" id="choice" action="#{repportingBean.downloadDomain(domain)}"/>
+	            <p:tooltip value="Repport New Case for #{domain.name}" for="choice" />
+	             </center>
+	             
+	         </p:row>
+	         <p:separator/>
+	    
+	     </p:repeat>
+	      </p:scrollPanel>
+	  </p:panel>
+
+</h:form>
+	</ui:define>
+
+
+</ui:composition>

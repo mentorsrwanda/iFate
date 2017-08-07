@@ -2,8 +2,11 @@ package rw.mentors.ifate.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,6 +33,8 @@ public class Question extends GenericDomain {
 
 	@OneToMany(mappedBy = "question")
 	private List<Answer> answers;
+	
+	
 
 	public String getCode() {
 		return code;
@@ -62,5 +67,15 @@ public class Question extends GenericDomain {
 	public void setDataDefinitions(List<DataDefinition> dataDefinitions) {
 		this.dataDefinitions = dataDefinitions;
 	}
+
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+	
+	
 
 }

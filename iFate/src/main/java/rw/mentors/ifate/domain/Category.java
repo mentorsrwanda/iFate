@@ -1,5 +1,6 @@
 package rw.mentors.ifate.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * @author NIYOMWUNGERI
@@ -26,15 +30,17 @@ public class Category extends GenericDomain {
 	private String name;
 	@Column(name = "DESCRIPTION")
 	private String description;
-
+    
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy = "category")
 	private List<Indicator> indicators;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "DOMAIN_UUID")
 	private Domain domain;
-
 	
+
+
 	public String getCode() {
 		return code;
 	}
@@ -74,6 +80,8 @@ public class Category extends GenericDomain {
 	public void setDomain(Domain domain) {
 		this.domain = domain;
 	}
+	
+	
 	
 
 }

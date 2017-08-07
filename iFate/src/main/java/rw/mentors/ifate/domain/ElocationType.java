@@ -6,5 +6,5 @@ package rw.mentors.ifate.domain;
  * @Time 9:37:09 PM
  */
 public enum ElocationType {
-	PROVINCE, DISTRICT, SECTOR
+	PROVINCE, DISTRICT, SECTOR;
 }
